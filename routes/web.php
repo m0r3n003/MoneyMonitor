@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +15,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('sections.Index');
 });
+
+
+// FORMULARIOS DE AUTENTICACIÓN Y USUARIOS
+
+Route::post('/login', function() {
+    return view('sections.auth.login');
+})->name('login');
+
+Route::post('/validateLogin', [UsuarioController::class, 'validateLogin'])->name('validateLogin');
+
+Route::post('/register', function() {
+    return view('sections.auth.register');
+})->name('register');
+
+// Route::post('/validateRegister', UsuarioController::validateRegister())->name('validateRegister');
+
