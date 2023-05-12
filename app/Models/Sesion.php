@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $limit
  * @property int $borrado
  */
-class Sesiones extends Model
+class Sesion extends Model
 {
     /**
      * The database table used by the model.
@@ -40,7 +40,7 @@ class Sesiones extends Model
      * @var array
      */
     protected $hidden = [
-        
+
     ];
 
     /**

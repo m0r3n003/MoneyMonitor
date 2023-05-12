@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\usuarios;
+use App\Models\Espacio;
 use Illuminate\Http\Request;
 
-class UsuarioController extends Controller
+class EspacioController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class UsuarioController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(usuarios $usuarios)
+    public function show(Espacio $espacio)
     {
         //
     }
@@ -42,7 +42,7 @@ class UsuarioController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(usuarios $usuarios)
+    public function edit(Espacio $espacio)
     {
         //
     }
@@ -50,7 +50,7 @@ class UsuarioController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, usuarios $usuarios)
+    public function update(Request $request, Espacio $espacio)
     {
         //
     }
@@ -58,15 +58,13 @@ class UsuarioController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(usuarios $usuarios)
+    public function destroy(Espacio $espacio)
     {
         //
     }
 
-    public function validateLogin(Request $req) {
-        if ($req->has('username')){
-            return view('components.sections.espacios.main', ['username' => $req->input('username')]);
-        }
-        return redirect('/login');
+
+    public function getEspacios() {
+
     }
 }

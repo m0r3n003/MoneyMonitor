@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $ColorFondo
  * @property int    $borrado
  */
-class Configuraciones extends Model
+class Configuracion extends Model
 {
     /**
      * The database table used by the model.
@@ -40,7 +40,7 @@ class Configuraciones extends Model
      * @var array
      */
     protected $hidden = [
-        
+
     ];
 
     /**
@@ -58,7 +58,7 @@ class Configuraciones extends Model
      * @var array
      */
     protected $dates = [
-        
+
     ];
 
     /**

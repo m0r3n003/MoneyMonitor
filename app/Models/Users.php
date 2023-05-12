@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int    $created_at
  * @property int    $updated_at
  */
-class Users extends Model
+class User extends Model
 {
     /**
      * The database table used by the model.
@@ -44,7 +44,7 @@ class Users extends Model
      * @var array
      */
     protected $hidden = [
-        
+
     ];
 
     /**

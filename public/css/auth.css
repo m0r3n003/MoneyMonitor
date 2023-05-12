@@ -1,0 +1,126 @@
+html,
+body,
+main {
+  padding: 0;
+
+}
+
+body {
+  background-image: url('/img/background.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.red-button {
+  background-color: #a30a0a;
+  color: #ffffff;
+}
+
+.red-a {
+  color: #a30a0a;
+}
+.register {
+    height: max-content;
+}
+.center-div {
+    background-color: #fff;
+    max-width: 60vw;
+    height: 40vw;
+    min-height: 40vw;
+    padding: 20px;
+    border-radius: 5px;
+    margin: auto;
+    overflow-y: auto;
+  }
+
+
+
+/* Estilos para pantallas pequeñas */
+@media screen and (max-width: 576px) {
+  .login-container {
+    max-width: 400px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+  }
+
+  .align-links {
+    display: flex;
+    flex-direction: column;
+  }
+  .center-div {
+    height: 120vw;
+    width: 95vh;
+  }
+  h1,h2,p{
+    font-size: medium;
+  }
+}
+
+/* Estilos para pantallas medianas */
+@media screen and (min-width: 577px) and (max-width: 768px) {
+  .login-container {
+    max-width: 400px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+  }
+
+  .align-links {
+    display: flex;
+    justify-content: space-between;
+  }
+  .center-div {
+    height: 80vw;
+
+  }
+}
+
+/* Estilos para pantallas grandes */
+@media screen and (min-width: 769px) and (max-width: 992px) {
+  .login-container {
+    max-width: 400px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+  }
+
+  .align-links {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+/* Estilos para pantallas extra grandes */
+@media screen and (min-width: 993px) {
+  .login-container {
+    max-width: 40vw;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+  }
+
+  .align-links {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+@media screen and (min-width: 1080px) {
+  .login-container {
+    max-width: 40vw;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+  }
+
+  .align-links {
+    display: flex;
+    justify-content: space-between;
+  }
+}

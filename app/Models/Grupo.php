@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int    $updated_at
  * @property int    $borrado
  */
-class Grupos extends Model
+class Grupo extends Model
 {
     /**
      * The database table used by the model.
@@ -41,7 +41,7 @@ class Grupos extends Model
      * @var array
      */
     protected $hidden = [
-        
+
     ];
 
     /**

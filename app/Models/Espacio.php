@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int    $updated_at
  * @property int    $borrado
  */
-class Espacios extends Model
+class Espacio extends Model
 {
     /**
      * The database table used by the model.
@@ -41,7 +41,7 @@ class Espacios extends Model
      * @var array
      */
     protected $hidden = [
-        
+
     ];
 
     /**
