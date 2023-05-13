@@ -4,39 +4,42 @@
             <div class="col-lg-6 col-md-8">
                 <div class="login-container">
                     <h3 class="text-left">Registro</h3>
-                    <form>
+                    <form method="post" action="{{ route('validateRegister') }}">
+                        @csrf
                         <div class="form-group">
                             <label for="username">Nombre de usuario</label>
-                            <input type="email" class="form-control" id="username" placeholder="">
+                            <input type="text" class="form-control" id="username" name="username" placeholder="">
                         </div>
                         <div class="form-group agruparForm">
                             <div>
                                 <label for="nombre">Nombre</label>
-                                <input type="email" class="form-control" id="nombre" placeholder="">
+                                <input type="text" class="form-control" id="nombre" name="Nombre" placeholder="">
                             </div>
                             <div>
                                 <label for="apellidos">Apellidos</label>
-                                <input type="email" class="form-control" id="apellidos" placeholder="">
+                                <input type="text" class="form-control" id="apellidos" name="Apellidos"
+                                    placeholder="">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="tipousuario">Seleccione su cargo</label>
-                            <select name="tipousuario" id="tipousuario" class="form-control">
+                            <select name="TipoUsuarioID" id="tipousuario" class="form-control">
                                 <option value="">Seleccione un cargo</option>
                                 @foreach ($cargos as $cargo)
-                                    <option value="{{$cargo->TipoUsuarioID}}">{{$cargo->TipoUsuario}}</option>
+                                    <option value="{{ $cargo->TipoUsuarioID }}">{{ $cargo->TipoUsuario }}</option>
                                 @endforeach
 
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="email">Correo electrónico (se verficará posteriormente)</label>
-                            <input type="email" class="form-control" id="email" placeholder="">
+                            <input type="email" class="form-control" name="email" id="email" placeholder="">
                         </div>
                         <div class="form-group agruparForm agruparForm50">
                             <div>
                                 <label for="password">Contraseña</label>
-                                <input type="password" class="form-control" id="password" placeholder="">
+                                <input type="password" class="form-control" id="password" name="password"
+                                    placeholder="">
                             </div>
                             <div>
                                 <label for="password_repeat">Repita la contraseña</label>

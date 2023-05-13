@@ -7,98 +7,119 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\VerificationMail;
+use App\Models\Usuario;
+use App\Models\Verificacion;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 
 class UsuarioController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+    public function login(Request $req) {
+        $this->validateDataLogin($req);
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        $user = (DB::table('usuarios')->select('UsuarioID')->where('username', $req->input('login'))->get())[0]->UsuarioID;
 
-    /**
-     * Display the specified resource.
-     */
-    // public function show(usuarios $usuarios)
-    // {
-    //     //
-    // }
 
-    // /**
-    //  * Show the form for editing the specified resource.
-    //  */
-    // public function edit(usuarios $usuarios)
-    // {
-    //     //
-    // }
-
-    // /**
-    //  * Update the specified resource in storage.
-    //  */
-    // public function update(Request $request, usuarios $usuarios)
-    // {
-    //     //
-    // }
-
-    // /**
-    //  * Remove the specified resource from storage.
-    //  */
-    // public function destroy(usuarios $usuarios)
-    // {
-    //     //
-    // }
-
-    public function validateLogin(Request $req) {
-        if ($req->has('username')){
-            return view('components.sections.espacios.main', ['username' => $req->input('username')]);
+        $user = Usuario::find($user);
+        if ($user->username == $req->input('login') && Hash::check($req->input('password'), $user->password)) {
+            return 'Usuario y contraseña correctos';
         }
-        return redirect('/login');
+        else {
+            return back();
+        }
+
+        return 0;
+    }
+    public function register (Request $req) {
+
+        $reqValidated = $this->validateDataRegister($req);
+
+        $usuario = new Usuario($reqValidated);
+        $verificacion = new Verificacion([
+            'VericationCode' => random_int(0, 999999)
+        ]);
+        $verificacion->save();
+        // dd($verificacion);
+        $usuario->VerificacionID = $verificacion->VerificacionID;
+        $usuario->password = Hash::make($req->input('password'));
+
+        $usuario->save();
+
+        $this->sendVerificationMail($verificacion->VericationCode, $usuario->email);
+
+        // return view('auth.verification', ['user' => $usuario->UsuarioID]);
+        return to_route('cargarVerificar', ['user' => $usuario->UsuarioID]);
+    }
+    public function cargarVerificar(Request $req) {
+        return view('auth.verification', ['user' => $req->input('user')]);
     }
 
-    public function cargarRegistrar() {
-        Mail::to('tmorenodelafuente@gmail.com', 'asunto', 'te ha llegao?');
 
+
+
+    public function verificar (Request $req) {
+        // dd($req);
+        $this->validateDataVerificar($req);
+
+        $usuario = Usuario::find($req->input('userID'));
+        $verificacion = Verificacion::find($usuario->VerificacionID);
+
+        // dd($verificacion);
+        if ($req->input('verificacion') == $verificacion->VerificationCode) {
+            $verificacion->used = 1;
+            $verificacion->save();
+            return to_route('escogerEspacio');
+        } else {
+            return back();
+        }
+    }
+    public function cargarRegistrar() {
         $cargos = DB::table('tipousuarios')->select('TipoUsuarioID', 'TipoUsuario')->where('borrado', '0')->orderBy('TipoUsuario')->get();
 
         return view('auth.register', ['cargos'=> $cargos]);
     }
-    public function register (Request $req) {
-        $reqValidated = $this->validateDataRegister($req);
-    }
-    public function validateDataRegister(Request $req) {
-        return $req->validate([
 
+
+
+
+    public function sendVerificationMail($code, $mail) {
+        $mailContacto = new VerificationMail($code);
+        Mail::to($mail)->send($mailContacto);
+    }
+
+    public function getVerificationCode($verificacionID) {
+        return (DB::table('verifiaciones')->select('VerificationCode')->where('VerificationID', $verificacionID)->get())[0]->VerificationCode;
+    }
+
+
+
+
+
+
+
+
+    public function validateDataRegister(Request $req) {
+        // dd($req);
+        return $req->validate([
+            'username' => 'required|max:15',
+            'Nombre' => 'required',
+            'Apellidos' => 'required',
+            'TipoUsuarioID' => 'required',
+            'email' => 'required',
+            'password' => 'required'
         ]);
     }
-
-
-    public function sendVerificationMail() {
-        $mailContacto = new VerificationMail('funciona esto?');
-        Mail::to('tmorenodelafuente@gmail.com')->send($mailContacto);
-        to_route('login');
+    public function validateDataLogin(Request $req) {
+        return $req->validate([
+            'login' => 'required|max:15',
+            'password' => 'required'
+        ]);
     }
-
-    public function getVerificationCode() {
-
+    public function validateDataVerificar(Request $req) {
+        return $req->validate([
+            'userID' => 'required',
+            'verificacion' => 'required'
+        ]);
     }
-
-
 }

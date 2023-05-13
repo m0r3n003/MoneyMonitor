@@ -16,9 +16,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', function () {
-    return view('sections.espacios.main');
-});
+Route::view('/','auth.login')->name('index');
+Route::view('/espacios','sections.espacios.main')->name('escogerEspacio');
 
 
 // FORMULARIOS DE AUTENTICACIÓN Y USUARIOS
@@ -26,11 +25,17 @@ Route::get('/', function () {
 Route::view('/login','auth.login')->name('login');
 Route::get('/register',[UsuarioController::class, 'cargarRegistrar'])->name('register');
 Route::view('/terminos','auth.terminos')->name('terminos');
+Route::post('/verificarAcceso', [UsuarioController::class, 'verificar'])->name('verificar');
+Route::get('/verificar', [UsuarioController::class, 'cargarVerificar'])->name('cargarVerificar');
 
-Route::post('/validateLogin', [UsuarioController::class, 'validateLogin'])->name('validateLogin');
-Route::post('/validateRegister', [UsuarioController::class, 'validateRegister'])->name('validateRegister');
+Route::post('/validateLogin', [UsuarioController::class, 'login'])->name('validateLogin');
+Route::post('/validateRegister', [UsuarioController::class, 'register'])->name('validateRegister');
+Route::post('/validateVerificar', [UsuarioController::class, 'verificar'])->name('validateVerificar');
 
-Route::get('/register/sendVerficationMail', [UsuarioController::class, 'sendVerificationMail'])->name('sendVerificationMail');
+
+
+
+Route::get('/register/sendVerficationMailTest', [UsuarioController::class, 'sendVerificationMailTest'])->name('sendVerificationMail');
 
 // Route::post('/escogerEspacio' )
 

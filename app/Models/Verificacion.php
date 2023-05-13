@@ -5,31 +5,25 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @property string $username
- * @property string $email
- * @property string $password
- * @property string $Nombre
- * @property string $Apellidos
- * @property int    $created_at
- * @property int    $updated_at
- * @property int    $borrado
- * @property int    $VerificacionID
+ * @property int $created_at
+ * @property int $used
+ * @property int $VericationCode
  */
-class Usuario extends Model
+class Verificacion extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'usuarios';
+    protected $table = 'verificaciones';
 
     /**
      * The primary key for the model.
      *
      * @var string
      */
-    protected $primaryKey = 'UsuarioID';
+    protected $primaryKey = 'VerificacionID';
 
     /**
      * Attributes that should be mass-assignable.
@@ -37,7 +31,7 @@ class Usuario extends Model
      * @var array
      */
     protected $fillable = [
-        'username', 'email', 'password', 'Nombre', 'Apellidos', 'created_at', 'updated_at', 'TipoUsuarioID', 'borrado', 'VerificacionID'
+        'created_at', 'used', 'VerificationCode'
     ];
 
     /**
@@ -55,7 +49,7 @@ class Usuario extends Model
      * @var array
      */
     protected $casts = [
-        'username' => 'string', 'email' => 'string', 'password' => 'string', 'Nombre' => 'string', 'Apellidos' => 'string', 'created_at' => 'timestamp', 'updated_at' => 'timestamp', 'borrado' => 'int'
+        'created_at' => 'timestamp', 'used' => 'int', 'VericationCode' => 'int'
     ];
 
     /**
@@ -64,7 +58,7 @@ class Usuario extends Model
      * @var array
      */
     protected $dates = [
-        'created_at', 'updated_at'
+        'created_at'
     ];
 
     /**
