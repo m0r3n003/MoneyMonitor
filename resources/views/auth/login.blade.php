@@ -14,6 +14,10 @@
                   <input type="password" class="form-control" id="password" placeholder="">
                 </div>
                 <div class="form-group">
+                    <input type="checkbox" class="" id="recurdame" placeholder="">
+                  <label for="password">Recuérdame</label>
+                </div>
+                <div class="form-group">
                   <button type="submit" class="btn btn-danger btn-block red-button">Iniciar Sesión</button>
                 </div>
                 <div class="d-flex align-items-end align-links">

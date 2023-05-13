@@ -3,6 +3,7 @@
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,9 +14,6 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::middleware('auth')->group(function () {
-    // Aquí van todas las rutas que requieren autenticación, excepto las dos vistas públicas
-});
 
 
 Route::get('/', function () {
@@ -26,11 +24,13 @@ Route::get('/', function () {
 // FORMULARIOS DE AUTENTICACIÓN Y USUARIOS
 
 Route::view('/login','auth.login')->name('login');
-Route::view('/register','auth.register')->name('register');
+Route::get('/register',[UsuarioController::class, 'cargarRegistrar'])->name('register');
 Route::view('/terminos','auth.terminos')->name('terminos');
 
 Route::post('/validateLogin', [UsuarioController::class, 'validateLogin'])->name('validateLogin');
 Route::post('/validateRegister', [UsuarioController::class, 'validateRegister'])->name('validateRegister');
+
+Route::get('/register/sendVerficationMail', [UsuarioController::class, 'sendVerificationMail'])->name('sendVerificationMail');
 
 // Route::post('/escogerEspacio' )
 

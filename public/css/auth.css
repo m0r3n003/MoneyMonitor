@@ -37,7 +37,11 @@ body {
     margin: auto;
     overflow-y: auto;
   }
-
+.agruparForm {
+    display: grid;
+    grid-template-columns: 35% auto;
+    gap: 5px;
+}
 
 
 /* Estilos para pantallas pequeñas */
@@ -60,6 +64,9 @@ body {
   h1,h2,p{
     font-size: medium;
   }
+  .agruparForm {
+    display: flex;
+}
 }
 
 /* Estilos para pantallas medianas */
@@ -79,6 +86,9 @@ body {
     height: 80vw;
 
   }
+  .agruparForm {
+    display: flex;
+}
 }
 
 /* Estilos para pantallas grandes */
