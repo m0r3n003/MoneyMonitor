@@ -7,29 +7,60 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\VerificationMail;
+use App\Models\Espacio;
 use App\Models\Usuario;
 use App\Models\Verificacion;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Redirect;
+use Illuminate\Validation\ValidationException as ValidationException;
 
 class UsuarioController extends Controller
 {
+    public function __construct(){
+        $this->middleware('guest')->except('logout', 'verificar', 'cargarVerificar','regenerateVerificationCode', 'sendVerificationMail');
+    }
+
 
     public function login(Request $req) {
         $this->validateDataLogin($req);
 
-        $user = (DB::table('usuarios')->select('UsuarioID')->where('username', $req->input('login'))->get())[0]->UsuarioID;
+        $user = (DB::table('usuarios')->select('UsuarioID')->where('username', $req->input('login'))->get());
+        if (count($user) > 0) {
+            $user = $user[0]->UsuarioID;
+        } else {
+            throw ValidationException::withMessages([
+                'login' => __('auth.failed')
+            ]);
+        }
 
 
         $user = Usuario::find($user);
-        if ($user->username == $req->input('login') && Hash::check($req->input('password'), $user->password)) {
-            return 'Usuario y contraseña correctos';
-        }
-        else {
-            return back();
-        }
 
-        return 0;
+        $credentials = [
+            'username' => $req->input('login'),
+            'password' => $req->input('password')
+
+        ];
+        if (!Auth::attempt($credentials, $req->boolean('remember'))) {
+            throw ValidationException::withMessages([
+                'login' => __('auth.failed')
+            ]);
+        }
+        $req->session()->regenerate();
+        $verificacion = Verificacion::find(auth()->user()->VerificacionID);
+        if ($verificacion->used == 1) {
+            return redirect()->intended();
+        } else {
+            return to_route('cargarVerificar');
+        }
+    }
+    public function logout(Request $req) {
+        Auth::guard('web')->logout();
+
+        $req->session()->invalidate();
+        $req->session()->regenerateToken();
+        return to_route('login');
+
     }
     public function register (Request $req) {
 
@@ -37,59 +68,66 @@ class UsuarioController extends Controller
 
         $usuario = new Usuario($reqValidated);
         $verificacion = new Verificacion([
-            'VericationCode' => random_int(0, 999999)
+            'VerificationCode' => random_int(0, 999999)
         ]);
         $verificacion->save();
-        // dd($verificacion);
+
         $usuario->VerificacionID = $verificacion->VerificacionID;
         $usuario->password = Hash::make($req->input('password'));
 
         $usuario->save();
 
-        $this->sendVerificationMail($verificacion->VericationCode, $usuario->email);
+        $this->sendVerificationMail($verificacion->VerificationCode, $usuario->email);
 
         // return view('auth.verification', ['user' => $usuario->UsuarioID]);
-        return to_route('cargarVerificar', ['user' => $usuario->UsuarioID]);
+        return to_route('login');
     }
-    public function cargarVerificar(Request $req) {
-        return view('auth.verification', ['user' => $req->input('user')]);
-    }
-
-
-
-
     public function verificar (Request $req) {
-        // dd($req);
         $this->validateDataVerificar($req);
 
-        $usuario = Usuario::find($req->input('userID'));
-        $verificacion = Verificacion::find($usuario->VerificacionID);
+        $verificacion = Verificacion::find(auth()->user()->VerificacionID);
 
-        // dd($verificacion);
         if ($req->input('verificacion') == $verificacion->VerificationCode) {
             $verificacion->used = 1;
             $verificacion->save();
             return to_route('escogerEspacio');
         } else {
-            return back();
+            throw ValidationException::withMessages([
+                'verificacion' => 'El número de verificación no es correcto'
+            ]);
         }
+    }
+
+
+    public function cargarVerificar(Request $req) {
+        return view('auth.verification');
+    }
+    public function regenerateVerificationCode(Request $req) {
+        error_log('llegas?');
+        $verificacion = Verificacion::find(auth()->user()->VerificacionID);
+        $verificacion->VerificationCode= random_int(0, 999999);
+        $verificacion->save();
+
+
+
+        $this->sendVerificationMail($verificacion->VerificationCode, auth()->user()->email);
+
+
     }
     public function cargarRegistrar() {
         $cargos = DB::table('tipousuarios')->select('TipoUsuarioID', 'TipoUsuario')->where('borrado', '0')->orderBy('TipoUsuario')->get();
 
         return view('auth.register', ['cargos'=> $cargos]);
     }
-
+    public function cargarLogin() {
+        return view('auth.login');
+    }
 
 
 
     public function sendVerificationMail($code, $mail) {
         $mailContacto = new VerificationMail($code);
         Mail::to($mail)->send($mailContacto);
-    }
-
-    public function getVerificationCode($verificacionID) {
-        return (DB::table('verifiaciones')->select('VerificationCode')->where('VerificationID', $verificacionID)->get())[0]->VerificationCode;
     }
 
 
@@ -118,7 +156,6 @@ class UsuarioController extends Controller
     }
     public function validateDataVerificar(Request $req) {
         return $req->validate([
-            'userID' => 'required',
             'verificacion' => 'required'
         ]);
     }

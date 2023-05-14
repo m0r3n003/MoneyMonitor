@@ -13,10 +13,11 @@
                         <div class="form-group">
                             <label for="password">Contraseña</label>
                             <input type="password" class="form-control" id="password" name="password" placeholder="">
+                            <span class="password fa fa-fw fa-eye password-icon show-password"></span>
                         </div>
                         <div class="form-group">
-                            <input type="checkbox" class="" id="recurdame" placeholder="">
-                            <label for="password">Recuérdame</label>
+                            <input type="checkbox" class="" id="recuerdame" name="remember">
+                            <label for="recuerdame">Recuérdame</label>
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-danger btn-block red-button">Iniciar Sesión</button>

@@ -3,68 +3,36 @@
 namespace App\Http\Controllers;
 
 use App\Models\Espacio;
+use App\Models\Verificacion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EspacioController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('auth.verified');
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        //
+
+
+    public function getEspacios(Request $req) {
+
+        DB::table('espacios')
+        ->select('espacios.GrupoID','EspacioID')
+        ->join('usuariosgrupos','espacios.GrupoID','=','usuariosgrupos.GrupoID')
+        ->where(
+            [
+                'UsuarioID' => auth()->user()->UsuarioID,
+            ]
+            )
+        ->get();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Espacio $espacio)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Espacio $espacio)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Espacio $espacio)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Espacio $espacio)
-    {
-        //
-    }
-
-
-    public function getEspacios() {
-
+    public function tempFunction (Request $req) {
+        return 0;
     }
 }

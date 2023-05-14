@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EspacioController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,17 +17,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::view('/','auth.login')->name('index');
-Route::view('/espacios','sections.espacios.main')->name('escogerEspacio');
+Route::get('/',[EspacioController::class, 'getEspacios'])->name('index');
+Route::post('/espacios/{EspacioID}',[EspacioController::class, 'tempFunction'])->name('escogerEspacio');
 
 
 // FORMULARIOS DE AUTENTICACIÓN Y USUARIOS
 
-Route::view('/login','auth.login')->name('login');
+Route::get('/login',[UsuarioController::class, 'cargarLogin'])->name('login');
 Route::get('/register',[UsuarioController::class, 'cargarRegistrar'])->name('register');
+Route::get('/logout',[UsuarioController::class, 'logout'])->name('logout');
 Route::view('/terminos','auth.terminos')->name('terminos');
 Route::post('/verificarAcceso', [UsuarioController::class, 'verificar'])->name('verificar');
 Route::get('/verificar', [UsuarioController::class, 'cargarVerificar'])->name('cargarVerificar');
+Route::post('/regenerateVerificationCode', [UsuarioController::class, 'regenerateVerificationCode'])->name('reenviarCodigo');
 
 Route::post('/validateLogin', [UsuarioController::class, 'login'])->name('validateLogin');
 Route::post('/validateRegister', [UsuarioController::class, 'register'])->name('validateRegister');

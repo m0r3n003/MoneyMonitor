@@ -42,7 +42,15 @@ body {
     grid-template-columns: 35% auto;
     gap: 5px;
 }
-
+.agruparForm50 {
+    grid-template-columns: auto auto;
+}
+.password-icon {
+    float: right;
+    position: relative;
+    margin: -25px 10px 0 0;
+    cursor: pointer;
+  }
 
 /* Estilos para pantallas pequeñas */
 @media screen and (max-width: 576px) {

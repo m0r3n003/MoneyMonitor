@@ -38,12 +38,20 @@
                         <div class="form-group agruparForm agruparForm50">
                             <div>
                                 <label for="password">Contraseña</label>
-                                <input type="password" class="form-control" id="password" name="password"
-                                    placeholder="">
+                                <div class="div">
+                                    <input type="password" class="form-control" id="password" name="password"
+                                    placeholder=""/>
+                                <span class="password fa fa-fw fa-eye password-icon show-password"></span>
+                                </div>
+
                             </div>
                             <div>
                                 <label for="password_repeat">Repita la contraseña</label>
-                                <input type="password" class="form-control" id="password_repeat" placeholder="">
+                                <div class="div">
+                                    <input type="password" class="form-control" id="password_repeat" placeholder=""/>
+                                    <span class="password_repeat fa fa-fw fa-eye password-icon show-password"></span>
+                                </div>
+
                             </div>
                         </div>
                         <div class="form-group">
@@ -52,7 +60,7 @@
                                     target="_blank">términos y condiciones</a>.</label>
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-danger btn-block red-button">Registrarse</button>
+                            <button type="submit" class="btn btn-danger btn-block red-button" id="register-btn" disabled>Registrarse</button>
                         </div>
                         <div class="d-flex align-items-end align-links">
                             <a class="red-a" href="{{ route('login') }}">Iniciar sesión</a>

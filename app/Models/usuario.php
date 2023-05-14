@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticable;
+use Illuminate\Notifications\Notifiable;
 
 /**
  * @property string $username
@@ -15,7 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int    $borrado
  * @property int    $VerificacionID
  */
-class Usuario extends Model
+class Usuario extends Authenticable
 {
     /**
      * The database table used by the model.
