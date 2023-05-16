@@ -1,25 +1,26 @@
-<x-layouts.loginLayout title="Login">
-    <div class="container">
-        <div class="row">
-          <div class="col-lg-6 col-md-8">
-            <div class="login-container">
-              <h3 class="text-center">Inicio de Sesión</h3>
-              <form>
-                <div class="form-group">
-                  <label for="email">Correo Electrónico</label>
-                  <input type="email" class="form-control" id="email" placeholder="Ingresa tu correo electrónico">
-                </div>
-                <div class="form-group">
-                  <label for="password">Contraseña</label>
-                  <input type="password" class="form-control" id="password" placeholder="Ingresa tu contraseña">
-                </div>
-                <div class="form-group">
-                  <button type="submit" class="btn btn-primary btn-block">Iniciar Sesión</button>
-                  <a href="{{route('register')}}"></a>
-                </div>
-              </form>
-            </div>
-          </div>
+<x-layouts.appLayout title="Selección de espacios">
+    <x-sections.header select="disabled" espacioActual="Espaci?">
+
+    </x-sections.header>
+    <main class="d-flex justify-content-center">
+        <div class="centered-div">
+                @foreach ($listaGrupos as $grupo)
+                    <h4 class="red_header" id="grupo_{{$grupo['GrupoID']}}">{{$grupo['grupoNombre']}}</h4>
+                        <ul>
+                            @foreach ($grupo['espacios'] as $espacio)
+                            <li><a class="black_espacio" href="#" id="espacio_{{$espacio['id']}}">{{$espacio['nombre']}}</a></li>
+                            @endforeach
+                            <li><a class="black_espacio" href="#" id="nuevo_espacio_{{$grupo['GrupoID']}}">+ Añadir un nuevo espacio</a></li>
+
+                        </ul>
+                @endforeach
+                    <h4 class="red_header"><a href="#" class="red_a">+ Añadir un nuevo grupo</a></h4>
+
+
         </div>
-      </div>
-</x-layouts.login>
+    </main>
+    <x-sections.dashboard default>
+
+    </x-sections.dashboard>
+
+</x-layouts.app>

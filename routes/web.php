@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/',[EspacioController::class, 'getEspacios'])->name('index');
-Route::post('/espacios/{EspacioID}',[EspacioController::class, 'tempFunction'])->name('escogerEspacio');
+Route::post('/espacios/{EspacioID}',[EspacioController::class, 'getEspacioInfo'])->name('escogerEspacio');
 
 
 // FORMULARIOS DE AUTENTICACIÓN Y USUARIOS

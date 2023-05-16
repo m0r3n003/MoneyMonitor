@@ -13,6 +13,7 @@ class EspacioController extends Controller
     public function __construct(){
         $this->middleware('auth.verified');
         $this->middleware('auth');
+        $this->middleware('espacio.selected')->except('getEspacios');
     }
     /**
      * Display a listing of the resource.
@@ -20,19 +21,68 @@ class EspacioController extends Controller
 
 
     public function getEspacios(Request $req) {
+        $data = [];
 
-        DB::table('espacios')
-        ->select('espacios.GrupoID','EspacioID')
+        $espacios = DB::table('espacios')
+        ->select('grupos.Nombre as NombreGrupo', 'espacios.GrupoID as GrupoID', 'espacios.Nombre as NombreEspacio','espacios.EspacioID')
         ->join('usuariosgrupos','espacios.GrupoID','=','usuariosgrupos.GrupoID')
+        ->join('grupos','grupos.GrupoID','=','espacios.GrupoID')
         ->where(
             [
                 'UsuarioID' => auth()->user()->UsuarioID,
             ]
             )
+        ->orderBy('GrupoID')
+        ->orderBy('NombreEspacio')
         ->get();
+
+        $listaEspaciosFormatted = [];
+
+        foreach ($espacios as $item) {
+            $listaEspaciosFormatted[$item->GrupoID]['GrupoID'] = $item->GrupoID;
+            $listaEspaciosFormatted[$item->GrupoID]['grupoNombre'] = $item->NombreGrupo;
+            $listaEspaciosFormatted[$item->GrupoID]['espacios'][] = ['id' => $item->EspacioID, 'nombre' => $item->NombreEspacio];
+        }
+
+
+        return view('espacios.escogerEspacio', [
+            'listaGrupos' => $listaEspaciosFormatted
+        ]);
+
+
+
+
+        // $listaGrupos = [
+        //     'GrupoManolo' =>
+        //         [
+        //             'GrupoID'=>'12345', 'grupoNombre' =>'EspacioManolo', 'espacios' => [
+        //                 ['id' => '123', 'nombre' => 'NombreEspacio']
+        //             ]
+        //         ]
+        // ]
     }
 
+    public function getEspacioInfo (Request $req) {
+
+
+
+
+
+        return view('espacios.main');
+    }
+
+
+
+
+
+
     public function tempFunction (Request $req) {
-        return 0;
+        $espacioActual = $req->input('EspacioID');
+        $espaciosUsuario = 0;
+
+
+        return view('espacios.main', [
+            'espacioActual' => $espacioActual
+        ]);
     }
 }

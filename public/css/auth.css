@@ -74,6 +74,7 @@ body {
   }
   .agruparForm {
     display: flex;
+    flex-direction: column;
 }
 }
 
@@ -96,6 +97,7 @@ body {
   }
   .agruparForm {
     display: flex;
+    flex-direction: column;
 }
 }
 

@@ -1,3 +1,156 @@
-body{
-    background-color: red;
+html,
+body,
+main {
+  padding: 0;
+
 }
+
+body {
+    background-image: url('/img/background.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 98vh;
+
+  }
+
+
+header {
+    background-color: #9c1413;
+    width: 96vw;
+    margin: 2vh auto;
+    color: white;
+    display: grid;
+    grid-template-columns: 25% auto 15%;
+    padding: 5px;
+    border-radius: 10px;
+}
+.seleccionEspacio {
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+}
+#saludo {
+    display: flex;
+    font-weight: bold;
+    text-align: center;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+main {
+    width: 94vw;
+    height: 70vh;
+    max-height: 70vh;
+    margin: 5px auto;
+    border: 6px solid #9c1413;
+    border-radius: 5px;
+    background-color: rgb(223, 223, 223);
+    overflow-y: scroll;
+
+}
+footer {
+    display: flex;
+    justify-content: space-around;
+    width: 30vw;
+    height: 6vh;
+    margin: 0px auto;
+    background-color: #dfdfdf;
+    border-radius: 60px / 50px;
+    padding: 5px;
+}
+
+ul {
+    list-style: none;
+}
+.red_header {
+    color: #9c1413;
+}
+.centered-div li {
+    color: black;
+}
+.centered-div {
+    margin: auto 0;
+}
+
+.selected_dashboard {
+    background-color: #9c1413;
+    border-radius: 100%;
+}
+
+.icon-white {
+    color: white;
+}
+
+.red_a {
+    color: #9c1413;
+    text-decoration: none;
+}
+.black_espacio {
+    text-decoration: none;
+    color: black;
+
+}
+
+
+
+
+
+
+main::-webkit-scrollbar {
+    width: 12px;
+}
+
+main::-webkit-scrollbar-track {
+    /* -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); */
+    border-radius: 10px;
+}
+
+main::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    margin-right: 3px;
+    background-color:#fff;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+
+
+
+
+@media screen and (max-width: 576px) {
+    header {
+        display: flex;
+    }
+    #saludo {
+        display: none;
+    }
+    #mensajes {
+        display: none;
+    }
+    .seleccionEspacio {
+        width: 95%;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+}
+
+  /* Estilos para pantallas medianas */
+@media screen and (min-width: 577px) and (max-width: 768px) {
+
+}
+
+  /* Estilos para pantallas grandes */
+@media screen and (min-width: 769px) and (max-width: 992px) {
+
+}
+
+  /* Estilos para pantallas extra grandes */
+@media screen and (min-width: 993px) {
+
+}
+
+@media screen and (min-width: 1080px) {
+
+}
+
+
+
+
