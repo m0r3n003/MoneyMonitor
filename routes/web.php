@@ -18,7 +18,8 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/',[EspacioController::class, 'getEspacios'])->name('index');
-Route::post('/espacios/{EspacioID}',[EspacioController::class, 'getEspacioInfo'])->name('escogerEspacio');
+Route::get('/espacios/{EspacioID}',[EspacioController::class, 'getEspacioInfo'])->name('escogerEspacio');
+Route::post('/espacios/cargarRuta',[EspacioController::class, 'cargarEspacio'])->name('cargarEspacio');
 
 
 // FORMULARIOS DE AUTENTICACIÓN Y USUARIOS
@@ -34,17 +35,8 @@ Route::post('/regenerateVerificationCode', [UsuarioController::class, 'regenerat
 Route::post('/validateLogin', [UsuarioController::class, 'login'])->name('validateLogin');
 Route::post('/validateRegister', [UsuarioController::class, 'register'])->name('validateRegister');
 Route::post('/validateVerificar', [UsuarioController::class, 'verificar'])->name('validateVerificar');
-
-
-
-
 Route::get('/register/sendVerficationMailTest', [UsuarioController::class, 'sendVerificationMailTest'])->name('sendVerificationMail');
 
-// Route::post('/escogerEspacio' )
 
-// Route::post('/register', function() {
-//     return view('sections.auth.register');
-// })->name('register');
-
-// Route::post('/validateRegister', UsuarioController::validateRegister())->name('validateRegister');
+// FORMULARIOS PAGINA PRINCIPAL
 

@@ -13,7 +13,7 @@ class EspacioController extends Controller
     public function __construct(){
         $this->middleware('auth.verified');
         $this->middleware('auth');
-        $this->middleware('espacio.selected')->except('getEspacios');
+        // $this->middleware('espacio.selected')->except('getEspacios', 'cargarEspacio');
     }
     /**
      * Display a listing of the resource.
@@ -63,7 +63,9 @@ class EspacioController extends Controller
     }
 
     public function getEspacioInfo (Request $req) {
+        $req->validate([
 
+        ]);
 
 
 
@@ -76,13 +78,7 @@ class EspacioController extends Controller
 
 
 
-    public function tempFunction (Request $req) {
-        $espacioActual = $req->input('EspacioID');
-        $espaciosUsuario = 0;
-
-
-        return view('espacios.main', [
-            'espacioActual' => $espacioActual
-        ]);
+    public function cargarEspacio (Request $req) {
+        return to_route('escogerEspacio', $req->input('EspacioID'));
     }
 }

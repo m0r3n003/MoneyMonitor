@@ -54,7 +54,7 @@ footer {
     width: 30vw;
     height: 6vh;
     margin: 0px auto;
-    background-color: #dfdfdf;
+    background-color: #9c1413;
     border-radius: 60px / 50px;
     padding: 5px;
 }
@@ -73,13 +73,17 @@ ul {
 }
 
 .selected_dashboard {
-    background-color: #9c1413;
+    position: absolute;
+    background-color: transparent;
+    border: 10px dotted grey;
     border-radius: 100%;
+    transform: scale(1.2, 1.2);
+    padding: .1rem;
+    height: 2rem;
+    left: 576.5px;
+    z-index: 1;
 }
 
-.icon-white {
-    color: white;
-}
 
 .red_a {
     color: #9c1413;
@@ -154,3 +158,27 @@ main::-webkit-scrollbar-thumb {
 
 
 
+
+
+
+
+
+.scrolleable-y {
+min-width: 100%;
+height: 98%;
+display: flex;
+flex-direction: row;
+overflow-x: hidden;
+}
+
+
+.screen {
+    min-width: 100%;
+    height: 100%;
+    padding: 5px;
+    overflow-y: auto;
+}
+.nav-items {
+    cursor: pointer;
+    z-index: 2;
+}
