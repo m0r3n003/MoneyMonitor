@@ -4,7 +4,10 @@
     </x-sections.header>
     <main>
         <div class="scrolleable-y" id="id_main">
-            <div class="screen">Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis eveniet eaque, aliquid impedit officiis omnis minus reiciendis facere blanditiis nulla saepe quod explicabo ipsa laudantium similique tempore in cumque temporibus!</div>
+            <div class="screen">Contenido pag 1</div>
+            <div class="screen">Contenido pag 2</div>
+            <div class="screen">Contenido pag 3</div>
+            <div class="screen">Contenido pag 4</div>
         </div>
     </main>
     <x-sections.dashboard>
