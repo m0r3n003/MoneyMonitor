@@ -74,8 +74,8 @@ ul {
 
 .selected_dashboard {
     position: absolute;
-    background-color: transparent;
-    border: 10px dotted grey;
+    background-color: white;
+    /* border: 10px dotted grey; */
     border-radius: 100%;
     transform: scale(1.2, 1.2);
     padding: .1rem;
