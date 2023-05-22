@@ -43,8 +43,9 @@ class UsuarioController extends Controller
         ];
         if (!Auth::attempt($credentials, $req->boolean('remember'))) {
             throw ValidationException::withMessages([
-                'login' => __('auth.failed')
+                'login' => 'Estas credenciales no coinciden con nuestros registros'
             ]);
+            //return back();
         }
         $req->session()->regenerate();
         $verificacion = Verificacion::find(auth()->user()->VerificacionID);
@@ -90,7 +91,7 @@ class UsuarioController extends Controller
         if ($req->input('verificacion') == $verificacion->VerificationCode) {
             $verificacion->used = 1;
             $verificacion->save();
-            return to_route('escogerEspacio');
+            return to_route('index');
         } else {
             throw ValidationException::withMessages([
                 'verificacion' => 'El número de verificación no es correcto'

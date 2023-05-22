@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/',[EspacioController::class, 'getEspacios'])->name('index');
 Route::get('/espacios/{EspacioID}',[EspacioController::class, 'getEspacioInfo'])->name('escogerEspacio');
+Route::get('/espacioSession/{EspacioID}',[EspacioController::class, 'espacioSession'])->name('changeEspacioSession');
 Route::post('/espacios/cargarRuta',[EspacioController::class, 'cargarEspacio'])->name('cargarEspacio');
 
 
@@ -40,3 +41,17 @@ Route::get('/register/sendVerficationMailTest', [UsuarioController::class, 'send
 
 // FORMULARIOS PAGINA PRINCIPAL
 
+
+
+
+Route::post('/cambiarConfiguracion/FormatoTabla', [EspacioController::class, 'cambiarFormatoTabla'])->name('cambiarFormatoTabla');
+// Modulos
+Route::get('/cargarChat/{EspacioID}', [EspacioController::class, 'cargarChat'])->name('cargarChat');
+Route::get('/enviarMensaje/{EspacioID}', [EspacioController::class, 'enviarMensaje'])->name('enviarMensaje');
+
+Route::post('/crearGrupo', [EspacioController::class, 'crearGrupo'])->name('crearGrupo');
+Route::post('/crearEspacio', [EspacioController::class, 'crearEspacio'])->name('crearEspacio');
+Route::post('/crearTransaccion', [EspacioController::class, 'crearTransaccion'])->name('crearTransaccion');
+Route::post('/eliminarTransaccion', [EspacioController::class, 'eliminarTransaccion'])->name('eliminarTransaccion');
+Route::post('/invitarUsuario', [EspacioController::class, 'invitarUsuario'])->name('invitarUsuario');
+Route::post('/editarPermisos', [EspacioController::class, 'editarPermisos'])->name('editarPermisos');

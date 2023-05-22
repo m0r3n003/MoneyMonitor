@@ -9,6 +9,9 @@
                         <div class="form-group">
                             <label for="login">Nombre de usuario</label>
                             <input type="text" class="form-control" id="login" name="login" placeholder="">
+                            @error('login')
+                                <small style="color: red">{{$message}}</small>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="password">Contraseña</label>

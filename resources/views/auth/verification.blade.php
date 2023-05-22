@@ -9,6 +9,9 @@
                         <div class="form-group">
                             <label for="login">Número de verificación</label>
                             <input type="text" class="form-control" name="verificacion" placeholder="Inserte el numero de verifiación">
+                            @error('verificacion')
+                                <small style="color: red">{{$message}}</small>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-danger btn-block red-button">Verificar</button>

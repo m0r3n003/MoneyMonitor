@@ -2,8 +2,9 @@
 
 namespace App\Providers;
 
-// use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -21,6 +22,47 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Gate::define('cargarUsuarios', function() {
+
+            $espacio = session('EspacioID')['EspacioID'];
+            $id = auth()->user()->UsuarioID;
+
+            $permisos = DB::table('usuarioespacios')
+            ->select('TipoPermisosID')
+            ->where('EspacioID', $espacio)
+            ->where('UsuarioID', $id)
+            ->where('TipoPermisosID', '>', '2')
+            ->where('borrado', '0')
+            ->get();
+
+            if (count($permisos) > 0) {
+                return true;
+            } else {
+                return false;
+            }
+
+        });
+        Gate::define('cargarChat', function() {
+
+            $espacio = session('EspacioID')['EspacioID'];
+            $id = auth()->user()->UsuarioID;
+
+            $permisos = DB::table('usuarioespacios')
+            ->select('TipoPermisosID')
+            ->where('EspacioID', $espacio)
+            ->where('UsuarioID', $id)
+            ->where('TipoPermisosID', '>', '1')
+            ->where('borrado', '0')
+            ->get();
+
+            if (count($permisos) > 0) {
+                return true;
+            } else {
+                return false;
+            }
+
+        });
+
+
     }
 }

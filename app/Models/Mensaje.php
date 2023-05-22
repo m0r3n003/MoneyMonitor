@@ -5,26 +5,25 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @property string $TipoPermisosID
- * @property int    $created_at
- * @property int    $updated_at
+ * @property string $ColorHeader
+ * @property string $ColorFondo
  * @property int    $borrado
  */
-class Usuarioespacio extends Model
+class Mensaje extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'usuarioespacios';
+    protected $table = 'mensajes';
 
     /**
      * The primary key for the model.
      *
      * @var string
      */
-    protected $primaryKey = 'UsuarioEspaciosID';
+    protected $primaryKey = 'MensajeID';
 
     /**
      * Attributes that should be mass-assignable.
@@ -32,7 +31,7 @@ class Usuarioespacio extends Model
      * @var array
      */
     protected $fillable = [
-        'UsuarioID', 'EspacioID', 'TipoPermisosID', 'ConfigurationID', 'created_at', 'updated_at', 'borrado'
+        'FromID', 'Mensaje', 'EspacioID', 'borrado'
     ];
 
     /**
@@ -50,7 +49,7 @@ class Usuarioespacio extends Model
      * @var array
      */
     protected $casts = [
-        'TipoPermisosID' => 'string', 'created_at' => 'timestamp', 'updated_at' => 'timestamp', 'borrado' => 'int'
+        'Mensaje' => 'string', 'borrado' => 'int'
     ];
 
     /**
